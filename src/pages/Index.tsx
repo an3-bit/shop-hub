@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,24 +18,31 @@ import { Footer } from "@/components/Footer";
 const initialProducts: Product[] = [
   {
     id: 1,
-    title: "Smartphone X",
-    price: 999.99,
-    description: "Latest smartphone with amazing features and powerful camera system.",
-    image: "https://picsum.photos/400/400",
+    title: "Nike Air Max 270",
+    price: 12000,
+    description: "Premium comfort and style with Nike's latest Air technology.",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
   },
   {
     id: 2,
-    title: "Laptop Pro",
-    price: 1499.99,
-    description: "Professional laptop with high performance and long battery life.",
-    image: "https://picsum.photos/400/401",
+    title: "MacBook Pro M2",
+    price: 250000,
+    description: "Powerful laptop for professionals with the latest M2 chip.",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
   },
   {
     id: 3,
+    title: "Designer T-Shirt",
+    price: 2500,
+    description: "Premium cotton t-shirt with modern design patterns.",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+  },
+  {
+    id: 4,
     title: "Wireless Earbuds",
-    price: 199.99,
-    description: "Premium wireless earbuds with noise cancellation technology.",
-    image: "https://picsum.photos/400/402",
+    price: 8000,
+    description: "High-quality wireless earbuds with noise cancellation.",
+    image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb",
   },
 ];
 
@@ -99,9 +106,7 @@ const Index = () => {
       <Navbar />
       <PromotionalBanner />
       
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
-        {/* Products Section */}
         <div className="mb-16">
           <div className="flex justify-between items-center mb-8">
             <div>
@@ -117,7 +122,12 @@ const Index = () => {
                 <option value="name">Sort by Name</option>
                 <option value="price">Sort by Price</option>
               </select>
-              <Button onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}>
+              <Button 
+                variant="outline"
+                onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}
+                className="flex items-center gap-2"
+              >
+                {viewType === "grid" ? <List className="h-4 w-4" /> : <Grid className="h-4 w-4" />}
                 {viewType === "grid" ? "List View" : "Grid View"}
               </Button>
               <Button onClick={() => openDialog()} className="flex items-center gap-2">
@@ -150,7 +160,6 @@ const Index = () => {
 
       <Footer />
 
-      {/* Product Form Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
