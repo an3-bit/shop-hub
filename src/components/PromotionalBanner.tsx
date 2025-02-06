@@ -1,58 +1,52 @@
-import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import React from 'react';
 
-export const PromotionalBanner = () => {
+const PromotionalBanner = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold mb-4">Welcome to ShopHub!</h2>
-            <div className="space-y-4">
-              <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-2">Special Offers</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <span className="text-yellow-300">★</span>
-                    Get 50% off on all electronics
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-yellow-300">★</span>
-                    Free shipping on orders above KES 10,000
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-2">Featured Products</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <span className="text-yellow-300">⚡</span>
-                    Latest iPhone - KES 150,000
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-yellow-300">⚡</span>
-                    Nike Air Max - KES 12,000
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <Link to="/products">
-              <Button variant="secondary" className="group">
-                Shop Now
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
-          <div className="hidden md:block">
+    <section className="bg-gradient-to-r from-purple-600 to-blue-500 py-12 px-6 text-white">
+      <div className="container mx-auto">
+        {/* Featured Product Highlight */}
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-4">Featured Product</h2>
+          <div className="flex flex-col md:flex-row items-center gap-6">
             <img
-              src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
-              alt="Shopping Banner"
-              className="rounded-lg shadow-xl object-cover h-[400px] w-full"
+              src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Featured Product"
+              className="w-full md:w-1/3 rounded-lg shadow-lg"
             />
+            <div>
+              <h3 className="text-2xl font-semibold">Premium Laptop</h3>
+              <p className="mt-2">Experience top-notch performance with our latest laptop model.</p>
+              <button className="mt-4 bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+                Shop Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Current Offers/Deals */}
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Current Offers</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { id: 1, title: "50% Off on Shoes", image: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600" },
+              { id: 2, title: "Buy 1 Get 1 Free on Clothes", image: "https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=600" },
+              { id: 3, title: "Laptops Starting at $499", image: "https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" },
+            ].map((offer) => (
+              <div key={offer.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src={offer.image} alt={offer.title} className="w-full h-48 object-cover" />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-gray-800">{offer.title}</h3>
+                  <button className="mt-2 bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300">
+                    Grab Deal
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
+
+export default PromotionalBanner;
