@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { ProductForm } from "@/components/ProductForm";
+import { PromotionalBanner } from "@/components/PromotionalBanner";
+import { Testimonials } from "@/components/Testimonials";
+import { Footer } from "@/components/Footer";
 
-// Mock initial products
 const initialProducts: Product[] = [
   {
     id: 1,
@@ -37,6 +44,8 @@ const Index = () => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
+  const [viewType, setViewType] = useState<"grid" | "list">("grid");
+  const [sortBy, setSortBy] = useState<"name" | "price">("name");
 
   const handleAddProduct = (newProduct: Omit<Product, "id">) => {
     const product = {
@@ -78,52 +87,84 @@ const Index = () => {
     setIsDialogOpen(true);
   };
 
+  const sortedProducts = [...products].sort((a, b) => {
+    if (sortBy === "name") {
+      return a.title.localeCompare(b.title);
+    }
+    return a.price - b.price;
+  });
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+      <PromotionalBanner />
       
       {/* Main Content */}
-      <main className="container mx-auto px-4 pt-24 pb-12">
-        {/* Header Section */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900">Products</h1>
-            <p className="text-gray-600 mt-2">Manage your product inventory</p>
+      <main className="container mx-auto px-4 py-12">
+        {/* Products Section */}
+        <div className="mb-16">
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">Our Products</h2>
+              <p className="text-gray-600 mt-2">Discover our amazing collection</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <select
+                className="border rounded-md px-3 py-2"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "name" | "price")}
+              >
+                <option value="name">Sort by Name</option>
+                <option value="price">Sort by Price</option>
+              </select>
+              <Button onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}>
+                {viewType === "grid" ? "List View" : "Grid View"}
+              </Button>
+              <Button onClick={() => openDialog()} className="flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Add Product
+              </Button>
+            </div>
           </div>
-          <Button onClick={() => openDialog()} className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            Add Product
-          </Button>
+
+          <div
+            className={`grid gap-6 ${
+              viewType === "grid"
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                : "grid-cols-1"
+            }`}
+          >
+            {sortedProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onEdit={(p) => openDialog(p)}
+                onDelete={handleDeleteProduct}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onEdit={(p) => openDialog(p)}
-              onDelete={handleDeleteProduct}
-            />
-          ))}
-        </div>
-
-        {/* Product Form Dialog */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                {selectedProduct ? "Edit Product" : "Add New Product"}
-              </DialogTitle>
-            </DialogHeader>
-            <ProductForm
-              product={selectedProduct}
-              onSubmit={selectedProduct ? handleEditProduct : handleAddProduct}
-              onCancel={() => setIsDialogOpen(false)}
-            />
-          </DialogContent>
-        </Dialog>
+        <Testimonials />
       </main>
+
+      <Footer />
+
+      {/* Product Form Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {selectedProduct ? "Edit Product" : "Add New Product"}
+            </DialogTitle>
+          </DialogHeader>
+          <ProductForm
+            product={selectedProduct}
+            onSubmit={selectedProduct ? handleEditProduct : handleAddProduct}
+            onCancel={() => setIsDialogOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
