@@ -104,6 +104,30 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+      
+      {/* Hero Section */}
+      <div className="relative bg-blue-600 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
+            alt="Hero Background"
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
+        <div className="relative container mx-auto px-4 py-24">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-bold mb-6">Welcome to ShopHub</h1>
+            <p className="text-xl mb-8">
+              Discover amazing products at unbeatable prices. Shop with confidence
+              and enjoy our exclusive deals.
+            </p>
+            <Button size="lg" variant="secondary" asChild>
+              <a href="/products">Shop Now</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <PromotionalBanner />
       
       <main className="container mx-auto px-4 py-12">
