@@ -36,7 +36,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
       <CardHeader>
         <CardTitle className="line-clamp-1">{product.title}</CardTitle>
         <CardDescription className="text-lg font-semibold text-accent">
-          ${product.price.toFixed(2)}
+          KES {product.price.toLocaleString()}
         </CardDescription>
       </CardHeader>
       <CardContent>
