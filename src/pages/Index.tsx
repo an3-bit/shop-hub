@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Plus, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { Navbar } from "@/components/Navbar";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { ProductForm } from "@/components/ProductForm";
 import PromotionalBanner from "@/components/PromotionalBanner";
@@ -104,8 +104,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="absolute inset-0">
