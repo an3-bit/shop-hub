@@ -14,6 +14,7 @@ import { ProductForm } from "@/components/ProductForm";
 import { PromotionalBanner } from "@/components/PromotionalBanner";
 import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
+import { ProductSection } from "@/components/ProductSection";
 
 const initialProducts: Product[] = [
   {
@@ -104,9 +105,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       {/* Hero Section */}
-      <div className="relative bg-blue-600 text-white">
+      <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
@@ -114,76 +115,40 @@ const Index = () => {
             className="w-full h-full object-cover opacity-20"
           />
         </div>
-        <div className="relative container mx-auto px-4 py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">Welcome to ShopHub</h1>
-            <p className="text-xl mb-8">
-              Discover amazing products at unbeatable prices. Shop with confidence
-              and enjoy our exclusive deals.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <a href="/products">Shop Now</a>
-            </Button>
-          </div>
+        <div className="relative container mx-auto px-4 py-32 text-center">
+          <h1 className="text-5xl font-bold mb-6">Welcome to ShopHub</h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Discover amazing products at unbeatable prices. Shop with confidence
+            and enjoy our exclusive deals.
+          </p>
+          <Button size="lg" variant="secondary" asChild>
+            <a href="/products">Explore Now</a>
+          </Button>
         </div>
       </div>
 
+      {/* Promotional Banner */}
       <PromotionalBanner />
-      
-      <main className="container mx-auto px-4 py-12">
-        <div className="mb-16">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Our Products</h2>
-              <p className="text-gray-600 mt-2">Discover our amazing collection</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <select
-                className="border rounded-md px-3 py-2"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "name" | "price")}
-              >
-                <option value="name">Sort by Name</option>
-                <option value="price">Sort by Price</option>
-              </select>
-              <Button 
-                variant="outline"
-                onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}
-                className="flex items-center gap-2"
-              >
-                {viewType === "grid" ? <List className="h-4 w-4" /> : <Grid className="h-4 w-4" />}
-                {viewType === "grid" ? "List View" : "Grid View"}
-              </Button>
-              <Button onClick={() => openDialog()} className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                Add Product
-              </Button>
-            </div>
-          </div>
 
-          <div
-            className={`grid gap-6 ${
-              viewType === "grid"
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                : "grid-cols-1"
-            }`}
-          >
-            {sortedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onEdit={(p) => openDialog(p)}
-                onDelete={handleDeleteProduct}
-              />
-            ))}
-          </div>
-        </div>
+      {/* Product Listing Section */}
+      <ProductSection
+        products={sortedProducts}
+        viewType={viewType}
+        sortBy={sortBy}
+        onSortChange={(value) => setSortBy(value as "name" | "price")}
+        onViewChange={() => setViewType(viewType === "grid" ? "list" : "grid")}
+        onAddProduct={() => openDialog()}
+        onEditProduct={(product) => openDialog(product)}
+        onDeleteProduct={handleDeleteProduct}
+      />
 
-        <Testimonials />
-      </main>
+      {/* Testimonials */}
+      <Testimonials />
 
+      {/* Footer */}
       <Footer />
 
+      {/* Add/Edit Product Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>

@@ -1,6 +1,8 @@
-import React from 'react';
+import { ArrowRight } from "lucide-react";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
-const PromotionalBanner = () => {
+export const PromotionalBanner = () => {
   return (
     <section className="bg-gradient-to-r from-purple-600 to-blue-500 py-12 px-6 text-white">
       <div className="container mx-auto">
@@ -48,5 +50,3 @@ const PromotionalBanner = () => {
     </section>
   );
 };
-
-export default PromotionalBanner;
