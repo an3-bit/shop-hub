@@ -1,4 +1,5 @@
-import { Edit, Trash } from "lucide-react";
+
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/components/ui/use-toast";
 
 export interface Product {
   id: number;
@@ -19,11 +22,20 @@ export interface Product {
 
 interface ProductCardProps {
   product: Product;
-  onEdit: (product: Product) => void;
-  onDelete: (id: number) => void;
 }
 
-export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast({
+      title: "Added to cart",
+      description: `${product.title} has been added to your cart.`,
+    });
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-square overflow-hidden">
@@ -42,22 +54,14 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
       <CardContent>
         <p className="text-gray-600 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter>
         <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onEdit(product)}
-          className="hover:text-primary hover:border-primary"
+          variant="default"
+          className="w-full"
+          onClick={handleAddToCart}
         >
-          <Edit className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onDelete(product.id)}
-          className="hover:text-destructive hover:border-destructive"
-        >
-          <Trash className="h-4 w-4" />
+          <ShoppingCart className="h-4 w-4 mr-2" />
+          Add to Cart
         </Button>
       </CardFooter>
     </Card>
