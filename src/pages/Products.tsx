@@ -1,3 +1,4 @@
+
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ const initialProducts: Product[] = [
     price: 7999,
     description: "Premium leather shoes for everyday comfort",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+    category: "shoes"
   },
   {
     id: 2,
@@ -17,6 +19,7 @@ const initialProducts: Product[] = [
     price: 129999,
     description: "High-performance laptop for professionals",
     image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+    category: "electronics"
   },
   {
     id: 3,
@@ -24,6 +27,7 @@ const initialProducts: Product[] = [
     price: 1499,
     description: "Comfortable cotton t-shirt for casual wear",
     image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+    category: "clothes"
   },
   {
     id: 4,
@@ -31,6 +35,7 @@ const initialProducts: Product[] = [
     price: 5999,
     description: "Professional running shoes for athletes",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+    category: "shoes"
   },
 ];
 
@@ -76,12 +81,7 @@ const Products = () => {
         }`}
       >
         {sortedProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onEdit={() => {}}
-            onDelete={() => {}}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
@@ -89,3 +89,4 @@ const Products = () => {
 };
 
 export default Products;
+
