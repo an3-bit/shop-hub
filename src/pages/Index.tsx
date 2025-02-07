@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Plus, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { ProductForm } from "@/components/ProductForm";
-import { PromotionalBanner } from "@/components/PromotionalBanner";
+import PromotionalBanner from "@/components/PromotionalBanner";
 import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
 import { ProductSection } from "@/components/ProductSection";
@@ -105,7 +106,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-
+      
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="absolute inset-0">
@@ -127,7 +128,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Promotional Banner */}
       <PromotionalBanner />
 
       {/* Product Listing Section */}
