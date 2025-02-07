@@ -1,5 +1,5 @@
-import { ProductCard, type Product } from "@/components/ProductCard";
 import { useState, useEffect } from "react";
+import { ProductCard, type Product } from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
 
@@ -10,6 +10,7 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // ✅ Fetch products from FakeStoreAPI
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -29,20 +30,56 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  // ✅ Sort products dynamically
   const sortedProducts = [...products].sort((a, b) => {
-    if (sortBy === "name") {
-      return a.title.localeCompare(b.title);
-    }
-    return a.price - b.price;
+    return sortBy === "name" ? a.title.localeCompare(b.title) : a.price - b.price;
   });
 
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
+  // ✅ Function to delete a product
+  const deleteProduct = async (id: number) => {
+    try {
+      const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete product.");
+      }
+      setProducts(products.filter((product) => product.id !== id));
+    } catch (err) {
+      alert("Error deleting product. Please try again.");
+    }
+  };
 
-  if (error) {
-    return <p className="text-red-500">{error}</p>;
-  }
+  // ✅ Function to add a new product (Fake API allows testing, but doesn't persist)
+  const addProduct = async () => {
+    const newProduct = {
+      title: "New Sample Product",
+      price: 99.99,
+      description: "This is a test product",
+      image: "https://via.placeholder.com/150",
+      category: "electronics",
+    };
+
+    try {
+      const response = await fetch("https://fakestoreapi.com/products", {
+        method: "POST",
+        body: JSON.stringify(newProduct),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add product.");
+      }
+
+      const addedProduct = await response.json();
+      setProducts([...products, { ...addedProduct, id: products.length + 1 }]);
+    } catch (err) {
+      alert("Error adding product. Please try again.");
+    }
+  };
+
+  // ✅ Handle loading and errors
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="container mx-auto px-4 py-24">
@@ -64,9 +101,14 @@ const Products = () => {
           >
             {viewType === "grid" ? <List /> : <Grid />}
           </Button>
+          {/* ✅ Add Product Button */}
+          <Button onClick={addProduct} variant="default">
+            Add Product
+          </Button>
         </div>
       </div>
 
+      {/* ✅ Display products with delete functionality */}
       <div
         className={`grid gap-6 ${
           viewType === "grid"
@@ -75,7 +117,11 @@ const Products = () => {
         }`}
       >
         {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onDelete={() => deleteProduct(product.id)} // Pass delete function
+          />
         ))}
       </div>
     </div>

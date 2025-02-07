@@ -1,116 +1,49 @@
-
-import { useState } from "react";
-import { Plus, Grid, List } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
-import { ProductCard, type Product } from "@/components/ProductCard";
-import { ProductForm } from "@/components/ProductForm";
 import PromotionalBanner from "@/components/PromotionalBanner";
 import { Testimonials } from "@/components/Testimonials";
-import { Footer } from "@/components/Footer";
 import ProductSection from "@/components/ProductSection";
-
-const initialProducts: Product[] = [
-  {
-    id: 1,
-    title: "Nike Air Max 270",
-    price: 12000,
-    description: "Premium comfort and style with Nike's latest Air technology.",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-  },
-  {
-    id: 2,
-    title: "MacBook Pro M2",
-    price: 250000,
-    description: "Powerful laptop for professionals with the latest M2 chip.",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
-  },
-  {
-    id: 3,
-    title: "Designer T-Shirt",
-    price: 2500,
-    description: "Premium cotton t-shirt with modern design patterns.",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
-  },
-  {
-    id: 4,
-    title: "Wireless Earbuds",
-    price: 8000,
-    description: "High-quality wireless earbuds with noise cancellation.",
-    image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb",
-  },
-];
+import { type Product } from "@/components/ProductCard";
 
 const Index = () => {
-  const { toast } = useToast();
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
+  const [products, setProducts] = useState<Product[]>([]);
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"name" | "price">("name");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
-    const product = {
-      ...newProduct,
-      id: Math.max(0, ...products.map((p) => p.id)) + 1,
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        setError("Failed to fetch products. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
     };
-    setProducts([...products, product]);
-    setIsDialogOpen(false);
-    toast({
-      title: "Success",
-      description: "Product added successfully",
-    });
-  };
 
-  const handleEditProduct = (updatedProduct: Omit<Product, "id">) => {
-    if (!selectedProduct) return;
-    const updatedProducts = products.map((p) =>
-      p.id === selectedProduct.id ? { ...updatedProduct, id: p.id } : p
-    );
-    setProducts(updatedProducts);
-    setIsDialogOpen(false);
-    setSelectedProduct(undefined);
-    toast({
-      title: "Success",
-      description: "Product updated successfully",
-    });
-  };
-
-  const handleDeleteProduct = (id: number) => {
-    setProducts(products.filter((p) => p.id !== id));
-    toast({
-      title: "Success",
-      description: "Product deleted successfully",
-    });
-  };
-
-  const openDialog = (product?: Product) => {
-    setSelectedProduct(product);
-    setIsDialogOpen(true);
-  };
+    fetchProducts();
+  }, []);
 
   const sortedProducts = [...products].sort((a, b) => {
-    if (sortBy === "name") {
-      return a.title.localeCompare(b.title);
-    }
-    return a.price - b.price;
+    return sortBy === "name" ? a.title.localeCompare(b.title) : a.price - b.price;
   });
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative  text-white">
+      <div className="relative text-white">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
             alt="Hero Background"
-            className="w-full h-full object-cover "
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="relative container mx-auto px-4 py-32 text-center">
@@ -128,36 +61,45 @@ const Index = () => {
       <PromotionalBanner />
 
       {/* Product Listing Section */}
-      <ProductSection
-        products={sortedProducts}
-        viewType={viewType}
-        sortBy={sortBy}
-        onSortChange={(value) => setSortBy(value as "name" | "price")}
-        onViewChange={() => setViewType(viewType === "grid" ? "list" : "grid")}
-        onAddProduct={() => openDialog()}
-        onEditProduct={(product) => openDialog(product)}
-        onDeleteProduct={handleDeleteProduct}
-      />
+      <div className="container mx-auto px-4 py-24">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold">Featured Products</h2>
+          <div className="flex gap-4">
+            <select
+              className="border rounded-md px-3 py-2"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as "name" | "price")}
+            >
+              <option value="name">Sort by Name</option>
+              <option value="price">Sort by Price</option>
+            </select>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}
+            >
+              {viewType === "grid" ? "📃" : "🔲"}
+            </Button>
+          </div>
+        </div>
+
+        {loading ? (
+          <p className="text-center text-gray-500 mt-10">Loading products...</p>
+        ) : error ? (
+          <p className="text-red-500 text-center">{error}</p>
+        ) : (
+          <ProductSection
+            products={sortedProducts}
+            viewType={viewType}
+            sortBy={sortBy}
+            onSortChange={(value) => setSortBy(value as "name" | "price")}
+            onViewChange={() => setViewType(viewType === "grid" ? "list" : "grid")}
+          />
+        )}
+      </div>
 
       {/* Testimonials */}
       <Testimonials />
-
-
-      {/* Add/Edit Product Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              {selectedProduct ? "Edit Product" : "Add New Product"}
-            </DialogTitle>
-          </DialogHeader>
-          <ProductForm
-            product={selectedProduct}
-            onSubmit={selectedProduct ? handleEditProduct : handleAddProduct}
-            onCancel={() => setIsDialogOpen(false)}
-          />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
