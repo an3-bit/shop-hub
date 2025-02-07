@@ -107,12 +107,12 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <div className="relative  text-white">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
             alt="Hero Background"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover "
           />
         </div>
         <div className="relative container mx-auto px-4 py-32 text-center">
