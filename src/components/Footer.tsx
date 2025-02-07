@@ -21,7 +21,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-2" />
-                <span>+1 (555) 123-4567</span>
+                <span>+(254) 123-4567</span>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-2" />
@@ -45,7 +45,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p>&copy; 2024 ShopHub. All rights reserved.</p>
+          <p>&copy; 2025 ShopHub. All rights reserved.</p>
         </div>
       </div>
     </footer>

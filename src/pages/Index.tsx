@@ -142,8 +142,6 @@ const Index = () => {
       {/* Testimonials */}
       <Testimonials />
 
-      {/* Footer */}
-      <Footer />
 
       {/* Add/Edit Product Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
