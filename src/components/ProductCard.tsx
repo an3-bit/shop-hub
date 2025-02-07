@@ -1,5 +1,5 @@
 
-import { Edit, Trash, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,11 +22,9 @@ export interface Product {
 
 interface ProductCardProps {
   product: Product;
-  onEdit: (product: Product) => void;
-  onDelete: (id: number) => void;
 }
 
-export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -56,26 +54,10 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
       <CardContent>
         <p className="text-gray-600 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter className="flex justify-between gap-2">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onEdit(product)}
-          className="hover:text-primary hover:border-primary"
-        >
-          <Edit className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => onDelete(product.id)}
-          className="hover:text-destructive hover:border-destructive"
-        >
-          <Trash className="h-4 w-4" />
-        </Button>
+      <CardFooter>
         <Button
           variant="default"
-          className="flex-grow"
+          className="w-full"
           onClick={handleAddToCart}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
