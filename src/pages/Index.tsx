@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Plus, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ import { ProductForm } from "@/components/ProductForm";
 import PromotionalBanner from "@/components/PromotionalBanner";
 import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
-import { ProductSection } from "@/components/ProductSection";
+import ProductSection from "@/components/ProductSection";
 
 const initialProducts: Product[] = [
   {

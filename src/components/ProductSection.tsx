@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,7 @@ interface Product {
   price: number;
   description: string;
   image: string;
-  category?: string; // Added category for filtering
+  category?: string;
 }
 
 interface ProductSectionProps {
