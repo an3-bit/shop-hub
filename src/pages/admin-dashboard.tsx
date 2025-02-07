@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,6 @@ const AdminLogin = () => {
       return;
     }
     setError("");
-    // Simulate authentication
     navigate("/admin/dashboard");
   };
 
@@ -37,6 +37,14 @@ const AdminLogin = () => {
 };
 
 const Dashboard = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
   const salesData = [
     { name: "Jan", sales: 4000 },
     { name: "Feb", sales: 3000 },
@@ -57,6 +65,29 @@ const Dashboard = () => {
               <Bar dataKey="sales" fill="#4F46E5" />
             </BarChart>
           </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <h3 className="text-lg font-semibold mb-2">Product Inventory</h3>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Product</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Category</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>{product.title}</TableCell>
+                  <TableCell>${product.price}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>

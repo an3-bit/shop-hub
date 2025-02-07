@@ -1,54 +1,48 @@
-
 import { ProductCard, type Product } from "@/components/ProductCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
 
-const initialProducts: Product[] = [
-  {
-    id: 1,
-    title: "Classic Leather Shoes",
-    price: 7999,
-    description: "Premium leather shoes for everyday comfort",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    category: "shoes"
-  },
-  {
-    id: 2,
-    title: "Modern Laptop Pro",
-    price: 129999,
-    description: "High-performance laptop for professionals",
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
-    category: "electronics"
-  },
-  {
-    id: 3,
-    title: "Cotton T-Shirt",
-    price: 1499,
-    description: "Comfortable cotton t-shirt for casual wear",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
-    category: "clothes"
-  },
-  {
-    id: 4,
-    title: "Running Shoes",
-    price: 5999,
-    description: "Professional running shoes for athletes",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    category: "shoes"
-  },
-];
-
 const Products = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"name" | "price">("name");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const sortedProducts = [...initialProducts].sort((a, b) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        setError("Failed to fetch products. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === "name") {
       return a.title.localeCompare(b.title);
     }
     return a.price - b.price;
   });
+
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-24">
@@ -89,4 +83,3 @@ const Products = () => {
 };
 
 export default Products;
-
