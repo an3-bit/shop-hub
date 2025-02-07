@@ -1,4 +1,5 @@
-import { Edit, Trash } from "lucide-react";
+
+import { Edit, Trash, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/components/ui/use-toast";
 
 export interface Product {
   id: number;
@@ -24,6 +27,17 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast({
+      title: "Added to cart",
+      description: `${product.title} has been added to your cart.`,
+    });
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-square overflow-hidden">
@@ -42,7 +56,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
       <CardContent>
         <p className="text-gray-600 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between gap-2">
         <Button
           variant="outline"
           size="icon"
@@ -58,6 +72,14 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
           className="hover:text-destructive hover:border-destructive"
         >
           <Trash className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="default"
+          className="flex-grow"
+          onClick={handleAddToCart}
+        >
+          <ShoppingCart className="h-4 w-4 mr-2" />
+          Add to Cart
         </Button>
       </CardFooter>
     </Card>
