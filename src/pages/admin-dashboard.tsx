@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Plus, Trash, Edit } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -16,7 +17,48 @@ interface Product {
   category: string;
 }
 
-const AdminProducts = () => {
+export const AdminLogin = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple mock authentication
+    if (credentials.username === "admin" && credentials.password === "admin") {
+      toast({ title: "Success", description: "Logged in successfully" });
+      navigate("/admin/dashboard");
+    } else {
+      toast({ title: "Error", description: "Invalid credentials" });
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <form onSubmit={handleLogin} className="space-y-4 w-full max-w-md p-8 border rounded-lg shadow-lg">
+        <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
+        <div className="space-y-2">
+          <Input
+            placeholder="Username"
+            value={credentials.username}
+            onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Input
+            type="password"
+            placeholder="Password"
+            value={credentials.password}
+            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+          />
+        </div>
+        <Button type="submit" className="w-full">Login</Button>
+      </form>
+    </div>
+  );
+};
+
+export const Dashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -106,8 +148,6 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
-
 // Product Form Component
 const ProductForm = ({ product, onSubmit }: { product: Product | null; onSubmit: (product: Product) => void }) => {
   const [formData, setFormData] = useState<Product>(product || {
@@ -134,3 +174,4 @@ const ProductForm = ({ product, onSubmit }: { product: Product | null; onSubmit:
   );
 };
 
+export default Dashboard;
