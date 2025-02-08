@@ -27,12 +27,14 @@ export const Navbar = () => {
     <nav className="bg-white shadow-sm fixed w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-primary">
               ShopHub
             </Link>
           </div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
@@ -53,8 +55,10 @@ export const Navbar = () => {
             </Link>
           </div>
 
+          {/* Search, Cart, and Mobile Menu Toggle */}
           <div className="flex items-center space-x-4">
-            <div className="relative">
+            {/* Search Bar (Hidden on Mobile) */}
+            <div className="hidden md:block relative">
               <input
                 type="text"
                 placeholder="Search products..."
@@ -70,6 +74,16 @@ export const Navbar = () => {
               </button>
             </div>
 
+            {/* Search Icon (Visible on Mobile) */}
+            <Button
+              variant="ghost"
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Search className="h-6 w-6" />
+            </Button>
+
+            {/* Cart Icon */}
             <Link to="/cart">
               <Button variant="ghost" className="relative p-2">
                 <ShoppingCart className="h-6 w-6" />
@@ -81,9 +95,10 @@ export const Navbar = () => {
               </Button>
             </Link>
 
+            {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
-              className="md:hidden ml-2"
+              className="md:hidden p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <Menu className="h-6 w-6" />
@@ -91,9 +106,28 @@ export const Navbar = () => {
           </div>
         </div>
 
+        {/* Mobile Menu (Visible on Small Screens) */}
         {isMenuOpen && (
           <div className="md:hidden pb-4">
-            <div className="flex flex-col space-y-2">
+            {/* Search Bar for Mobile */}
+            <div className="relative mt-2">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                onClick={handleSearch}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-primary"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Mobile Navigation Links */}
+            <div className="flex flex-col space-y-2 mt-4">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
