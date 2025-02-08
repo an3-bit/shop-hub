@@ -26,7 +26,7 @@ interface ProductCardProps {
   onDelete?: (id: number) => void;
 }
 
-export const ProductCard = ({ product, onDelete }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -56,23 +56,15 @@ export const ProductCard = ({ product, onDelete }: ProductCardProps) => {
       <CardContent>
         <p className="text-gray-600 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter className="flex justify-between gap-4">
+      <CardFooter>
         <Button
           variant="default"
-          className="flex-1"
+          className="w-full"
           onClick={handleAddToCart}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
           Add to Cart
         </Button>
-        {onDelete && (
-          <Button
-            variant="destructive"
-            onClick={() => onDelete(product.id)}
-          >
-            Delete
-          </Button>
-        )}
       </CardFooter>
     </Card>
   );
