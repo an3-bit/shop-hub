@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,7 @@ export const ProductForm = ({ product, onSubmit, onCancel }: ProductFormProps) =
     price: product?.price || "",
     description: product?.description || "",
     image: product?.image || "",
+    category: product?.category || "other"
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,6 +38,7 @@ export const ProductForm = ({ product, onSubmit, onCancel }: ProductFormProps) =
       price: Number(formData.price),
       description: formData.description,
       image: formData.image,
+      category: formData.category
     });
   };
 
@@ -78,6 +81,19 @@ export const ProductForm = ({ product, onSubmit, onCancel }: ProductFormProps) =
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Product description"
+          className="mt-1"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+          Category *
+        </label>
+        <Input
+          id="category"
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          placeholder="Product category"
           className="mt-1"
         />
       </div>

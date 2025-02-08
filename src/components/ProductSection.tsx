@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Grid, List, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,7 @@ interface Product {
   price: number;
   description: string;
   image: string;
-  category?: string;
+  category: string; // Make category required
 }
 
 interface ProductSectionProps {
@@ -153,4 +152,3 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 };
 
 export default ProductSection;
-

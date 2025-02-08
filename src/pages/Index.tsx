@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import PromotionalBanner from "@/components/PromotionalBanner";
@@ -20,7 +21,12 @@ const Index = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setProducts(data);
+        // Ensure each product has a category
+        const productsWithCategory = data.map((p: any) => ({
+          ...p,
+          category: p.category || "other"
+        }));
+        setProducts(productsWithCategory);
       } catch (err) {
         setError("Failed to fetch products. Please try again later.");
       } finally {
@@ -30,6 +36,21 @@ const Index = () => {
 
     fetchProducts();
   }, []);
+
+  const handleAddProduct = () => {
+    // Implement product addition logic here
+    console.log("Add product clicked");
+  };
+
+  const handleEditProduct = (product: Product) => {
+    // Implement product editing logic here
+    console.log("Edit product clicked", product);
+  };
+
+  const handleDeleteProduct = (id: number) => {
+    // Implement product deletion logic here
+    console.log("Delete product clicked", id);
+  };
 
   const sortedProducts = [...products].sort((a, b) => {
     return sortBy === "name" ? a.title.localeCompare(b.title) : a.price - b.price;
@@ -62,27 +83,6 @@ const Index = () => {
 
       {/* Product Listing Section */}
       <div className="container mx-auto px-4 py-24">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold">Featured Products</h2>
-          <div className="flex gap-4">
-            <select
-              className="border rounded-md px-3 py-2"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "name" | "price")}
-            >
-              <option value="name">Sort by Name</option>
-              <option value="price">Sort by Price</option>
-            </select>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setViewType(viewType === "grid" ? "list" : "grid")}
-            >
-              {viewType === "grid" ? "📃" : "🔲"}
-            </Button>
-          </div>
-        </div>
-
         {loading ? (
           <p className="text-center text-gray-500 mt-10">Loading products...</p>
         ) : error ? (
@@ -94,6 +94,9 @@ const Index = () => {
             sortBy={sortBy}
             onSortChange={(value) => setSortBy(value as "name" | "price")}
             onViewChange={() => setViewType(viewType === "grid" ? "list" : "grid")}
+            onAddProduct={handleAddProduct}
+            onEditProduct={handleEditProduct}
+            onDeleteProduct={handleDeleteProduct}
           />
         )}
       </div>
