@@ -15,7 +15,7 @@ const PromotionalBanner = () => {
       <div className="container mx-auto">
         {/* Featured Products Highlight */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Featured Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
               <img
@@ -69,7 +69,7 @@ const PromotionalBanner = () => {
 
         {/* Current Offers/Deals */}
         <div>
-          <h2 className="text-3xl font-bold mb-4">Current Offers</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center">Current Offers</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { id: 1, title: "50% Off on Shoes", image: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600", category: "men's clothing" },
