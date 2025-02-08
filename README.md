@@ -1,71 +1,35 @@
-# Welcome to your Lovable project
+Project Info
+This project is a modern web application built with React, TypeScript, shadcn-ui, and Tailwind CSS. It provides an admin dashboard with features like product management, sales analytics, and inventory tracking.
 
-## Project info
+How Can I Edit This Code?
+There are several ways to edit this application.
 
-**URL**: https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Use Your Preferred IDE
+If you want to work locally using your own IDE, you can clone this repo and push changes. The only requirement is having Node.js & npm installed - install with nvm.
 
 Follow these steps:
 
-```sh
+sh
+Copy
 # Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
-Navigate to the project directory:
 
-sh
-Copy
+# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
-Dependency Installation
-Install the necessary dependencies by running:
 
-<!-- sh -->
-Copy
-npm install
-Running the Project
-Start the development server with auto-reloading and an instant preview:
+# Step 3: Install the necessary dependencies.
+npm i
 
-sh
-Copy
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
-Once the server is running, open your browser and navigate to:
-
-Copy
-http://localhost:8080
-Project Structure
-Here’s an overview of the project structure:
-
-
-Editing the Code
-You can edit this project in several ways:
-
-1. Using Your Preferred IDE
-Clone the repository and open it in your IDE.
-
-Make changes locally and push them to the repository.
-
-2. Editing Directly in GitHub
-Navigate to the desired file(s) in the repository.
+Edit a File Directly in GitHub
+Navigate to the desired file(s).
 
 Click the "Edit" button (pencil icon) at the top right of the file view.
 
-Make your changes and commit them.
+Make your changes and commit the changes.
 
-3. Using GitHub Codespaces
+Use GitHub Codespaces
 Navigate to the main page of your repository.
 
 Click on the "Code" button (green button) near the top right.
@@ -74,22 +38,23 @@ Select the "Codespaces" tab.
 
 Click on "New codespace" to launch a new Codespace environment.
 
-Edit files directly within the Codespace and commit your changes.
+Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+<!-- What Technologies Are Used for This Project? -->
+This project is built with:
 
-This project is built with .
+React: A JavaScript library for building user interfaces.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+TypeScript: Adds static typing to JavaScript for better code quality.
 
-## How can I deploy this project?
+shadcn-ui: A collection of reusable UI components.
 
-Simply open [Lovable](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and click on Share -> Publish.
+Tailwind CSS: A utility-first CSS framework for rapid UI development.
 
-## I want to use a custom domain - is that possible?
+Vite: Fast build tool for modern web applications.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+<!-- How Can I Deploy This Project? -->
+To deploy this project, you can use any static hosting service like Netlify, Vercel, or GitHub Pages. Follow the deployment instructions for your chosen platform.
+
+<!-- I Want to Use a Custom Domain - Is That Possible? -->
+If you want to deploy your project under your own domain, you can use services like Netlify or Vercel, which support custom domains. Refer to their documentation for detailed instructions.
