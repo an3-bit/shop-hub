@@ -1,19 +1,29 @@
-React + TypeScript Admin Dashboard
-Project Overview
-This project is a modern web application built with React, TypeScript, shadcn-ui, and Tailwind CSS. It provides an admin dashboard with features like product management, sales analytics, and inventory tracking. The application is designed to be user-friendly, responsive, and easy to customize.
+# Welcome to your Lovable project
 
-Setup Instructions
-To get started with this project, follow the steps below:
+## Project info
 
-Prerequisites
-Node.js (v16 or higher) and npm installed.
-If you don't have Node.js installed, you can use nvm to install it.
+**URL**: https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6
 
-Clone the Repository
-Clone the repository using the project's Git URL:
+## How can I edit this code?
 
-sh
-Copy
+There are several ways of editing your application.
+
+**Use Lovable**
+
+Simply visit the [Lovable Project](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and start prompting.
+
+Changes made via Lovable will be committed automatically to this repo.
+
+**Use your preferred IDE**
+
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
 Navigate to the project directory:
 
@@ -66,35 +76,20 @@ Click on "New codespace" to launch a new Codespace environment.
 
 Edit files directly within the Codespace and commit your changes.
 
-Technologies Used
-This project is built with the following technologies:
+## What technologies are used for this project?
 
-1. React: A JavaScript library for building user interfaces.
+This project is built with .
 
-2. TypeScript: Adds static typing to JavaScript for better code quality.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-3. shadcn-ui: A collection of reusable UI components.
+## How can I deploy this project?
 
-4. Tailwind CSS: A utility-first CSS framework for rapid UI development.
+Simply open [Lovable](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and click on Share -> Publish.
 
-5. Vite: Fast build tool for modern web applications.
+## I want to use a custom domain - is that possible?
 
-Deployment
-To deploy this project, you can use any static hosting service like Netlify, Vercel, or GitHub Pages. Follow the deployment instructions for your chosen platform.
-
-Contributing
-If you'd like to contribute to this project, please follow these steps:
-
-Fork the repository.
-
-Create a new branch for your feature or bugfix.
-
-Make your changes and commit them.
-
-Submit a pull request.
-
-Support
-For any questions or issues, feel free to open an issue in the repository.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
