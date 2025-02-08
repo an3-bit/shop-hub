@@ -55,7 +55,7 @@ export const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-secondary overflow-hidden">
+    <section className="py-16 bg-[#D3E4FD] overflow-hidden">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
         <div className="relative">
@@ -99,3 +99,4 @@ export const Testimonials = () => {
     </section>
   );
 };
+
