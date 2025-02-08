@@ -1,5 +1,4 @@
-
-import { ShoppingCart, Menu } from "lucide-react";
+import { ShoppingCart, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -9,6 +8,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartCount } = useCart();
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -16,6 +16,12 @@ export const Navbar = () => {
     { path: "/about", label: "About" },
     { path: "/contact", label: "Contact" },
   ];
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      window.location.href = `/products?search=${searchQuery}`;
+    }
+  };
 
   return (
     <nav className="bg-white shadow-sm fixed w-full z-50">
@@ -27,13 +33,13 @@ export const Navbar = () => {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-gray-600 hover:text-primary transition-colors ${
-                  location.pathname === item.path ? "text-primary" : ""
+                className={`px-4 py-2 rounded-lg shadow-md transition-all duration-300 text-gray-600 hover:bg-purple-600 hover:text-white border border-purple-400 ${
+                  location.pathname === item.path ? "bg-purple-600 text-white" : ""
                 }`}
               >
                 {item.label}
@@ -41,13 +47,29 @@ export const Navbar = () => {
             ))}
             <Link
               to="/auth"
-              className="text-gray-600 hover:text-primary transition-colors"
+              className="px-4 py-2 rounded-lg shadow-md transition-all duration-300 text-gray-600 hover:bg-purple-600 hover:text-white border border-purple-400"
             >
               Sign In
             </Link>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                onClick={handleSearch}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-primary"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </div>
+
             <Link to="/cart">
               <Button variant="ghost" className="relative p-2">
                 <ShoppingCart className="h-6 w-6" />
@@ -76,8 +98,8 @@ export const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`text-gray-600 hover:text-primary transition-colors px-4 py-2 ${
-                    location.pathname === item.path ? "text-primary" : ""
+                  className={`px-4 py-2 rounded-lg shadow-md transition-all duration-300 text-gray-600 hover:bg-purple-600 hover:text-white border border-purple-400 ${
+                    location.pathname === item.path ? "bg-purple-600 text-white" : ""
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -86,7 +108,7 @@ export const Navbar = () => {
               ))}
               <Link
                 to="/auth"
-                className="text-gray-600 hover:text-primary transition-colors px-4 py-2"
+                className="px-4 py-2 rounded-lg shadow-md transition-all duration-300 text-gray-600 hover:bg-purple-600 hover:text-white border border-purple-400"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sign In
