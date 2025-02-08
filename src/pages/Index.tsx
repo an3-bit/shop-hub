@@ -3,58 +3,36 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import PromotionalBanner from "@/components/PromotionalBanner";
 import { Testimonials } from "@/components/Testimonials";
-import ProductSection from "@/components/ProductSection";
-import { type Product } from "@/components/ProductCard";
+import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
+
+const categoryCards = [
+  {
+    id: 1,
+    title: "Men's Clothing",
+    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=2070&auto=format&fit=crop",
+    category: "men's clothing"
+  },
+  {
+    id: 2,
+    title: "Women's Clothing",
+    image: "https://images.unsplash.com/photo-1525845859779-54d477ff291f?q=80&w=1887&auto=format&fit=crop",
+    category: "women's clothing"
+  },
+  {
+    id: 3,
+    title: "Electronics",
+    image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=2070&auto=format&fit=crop",
+    category: "electronics"
+  }
+];
 
 const Index = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [viewType, setViewType] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<"name" | "price">("name");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        // Ensure each product has a category
-        const productsWithCategory = data.map((p: any) => ({
-          ...p,
-          category: p.category || "other"
-        }));
-        setProducts(productsWithCategory);
-      } catch (err) {
-        setError("Failed to fetch products. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const handleAddProduct = () => {
-    // Implement product addition logic here
-    console.log("Add product clicked");
+  const handleCategoryClick = (category: string) => {
+    navigate(`/products?category=${category}`);
   };
-
-  const handleEditProduct = (product: Product) => {
-    // Implement product editing logic here
-    console.log("Edit product clicked", product);
-  };
-
-  const handleDeleteProduct = (id: number) => {
-    // Implement product deletion logic here
-    console.log("Delete product clicked", id);
-  };
-
-  const sortedProducts = [...products].sort((a, b) => {
-    return sortBy === "name" ? a.title.localeCompare(b.title) : a.price - b.price;
-  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -81,24 +59,29 @@ const Index = () => {
 
       <PromotionalBanner />
 
-      {/* Product Listing Section */}
+      {/* Category Cards Section */}
       <div className="container mx-auto px-4 py-24">
-        {loading ? (
-          <p className="text-center text-gray-500 mt-10">Loading products...</p>
-        ) : error ? (
-          <p className="text-red-500 text-center">{error}</p>
-        ) : (
-          <ProductSection
-            products={sortedProducts}
-            viewType={viewType}
-            sortBy={sortBy}
-            onSortChange={(value) => setSortBy(value as "name" | "price")}
-            onViewChange={() => setViewType(viewType === "grid" ? "list" : "grid")}
-            onAddProduct={handleAddProduct}
-            onEditProduct={handleEditProduct}
-            onDeleteProduct={handleDeleteProduct}
-          />
-        )}
+        <h2 className="text-3xl font-bold text-center mb-12">Shop by Category</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {categoryCards.map((card) => (
+            <Card 
+              key={card.id} 
+              className="cursor-pointer hover:shadow-lg transition-shadow group overflow-hidden"
+              onClick={() => handleCategoryClick(card.category)}
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white">{card.title}</h3>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
 
       {/* Testimonials */}
