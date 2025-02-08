@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -120,7 +121,7 @@ const Products = () => {
           <ProductCard
             key={product.id}
             product={product}
-            onDelete={() => deleteProduct(product.id)} // Pass delete function
+            onDelete={deleteProduct}
           />
         ))}
       </div>

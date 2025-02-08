@@ -18,13 +18,15 @@ export interface Product {
   price: number;
   description: string;
   image: string;
+  category: string;
 }
 
 interface ProductCardProps {
   product: Product;
+  onDelete?: (id: number) => void;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product, onDelete }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -54,15 +56,23 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <CardContent>
         <p className="text-gray-600 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-between gap-4">
         <Button
           variant="default"
-          className="w-full"
+          className="flex-1"
           onClick={handleAddToCart}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
           Add to Cart
         </Button>
+        {onDelete && (
+          <Button
+            variant="destructive"
+            onClick={() => onDelete(product.id)}
+          >
+            Delete
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
