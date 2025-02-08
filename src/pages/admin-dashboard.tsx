@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@/components/ui/table";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -63,33 +64,33 @@ const AdminProducts = () => {
 
       {/* Products Table */}
       <Table>
-        <Thead>
-          <Tr>
-            <Th>Image</Th>
-            <Th>Title</Th>
-            <Th>Price</Th>
-            <Th>Category</Th>
-            <Th>Actions</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Image</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {products.map((product) => (
-            <Tr key={product.id}>
-              <Td><img src={product.image} alt={product.title} className="w-12 h-12" /></Td>
-              <Td>{product.title}</Td>
-              <Td>${product.price}</Td>
-              <Td>{product.category}</Td>
-              <Td>
+            <TableRow key={product.id}>
+              <TableCell><img src={product.image} alt={product.title} className="w-12 h-12" /></TableCell>
+              <TableCell>{product.title}</TableCell>
+              <TableCell>${product.price}</TableCell>
+              <TableCell>{product.category}</TableCell>
+              <TableCell>
                 <Button variant="outline" size="icon" onClick={() => { setSelectedProduct(product); setIsDialogOpen(true); }}>
                   <Edit className="w-5 h-5" />
                 </Button>
                 <Button variant="destructive" size="icon" onClick={() => handleDeleteProduct(product.id)}>
                   <Trash className="w-5 h-5" />
                 </Button>
-              </Td>
-            </Tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </Tbody>
+        </TableBody>
       </Table>
 
       {/* Add/Edit Product Dialog */}
@@ -132,3 +133,4 @@ const ProductForm = ({ product, onSubmit }: { product: Product | null; onSubmit:
     </div>
   );
 };
+
