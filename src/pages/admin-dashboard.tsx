@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
@@ -17,19 +16,33 @@ interface Product {
   category: string;
 }
 
+// Admin Login Component
 export const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    // Check if admin is already logged in
+    const isAdminLoggedIn = localStorage.getItem("adminUser");
+    if (isAdminLoggedIn) {
+      navigate("/admin/dashboard");
+    }
+  }, [navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple mock authentication
-    if (credentials.username === "admin" && credentials.password === "admin") {
-      toast({ title: "Success", description: "Logged in successfully" });
+
+    // Mock admin credentials (Replace this with API call in future)
+    const validEmail = "admin@example.com";
+    const validPassword = "admin123";
+
+    if (credentials.email.trim() === validEmail && credentials.password.trim() === validPassword) {
+      localStorage.setItem("adminUser", "true"); // Save login state
+      toast({ title: "Success", description: "Logged in successfully!" });
       navigate("/admin/dashboard");
     } else {
-      toast({ title: "Error", description: "Invalid credentials" });
+      toast({ title: "Error", description: "Invalid email or password" });
     }
   };
 
@@ -39,9 +52,11 @@ export const AdminLogin = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
         <div className="space-y-2">
           <Input
-            placeholder="Username"
-            value={credentials.username}
-            onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+            type="email"
+            placeholder="Email"
+            value={credentials.email}
+            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -50,6 +65,7 @@ export const AdminLogin = () => {
             placeholder="Password"
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+            required
           />
         </div>
         <Button type="submit" className="w-full">Login</Button>
@@ -58,18 +74,26 @@ export const AdminLogin = () => {
   );
 };
 
+// Admin Dashboard Component
 export const Dashboard = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { toast } = useToast();
 
-  // Fetch products from API
   useEffect(() => {
+    // Fetch products from API
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
-  }, []);
+
+    // Check if admin is logged in
+    const isAdminLoggedIn = localStorage.getItem("adminUser");
+    if (!isAdminLoggedIn) {
+      navigate("/admin/login");
+    }
+  }, [navigate]);
 
   // Handle Add/Edit Product
   const handleSaveProduct = (product: Product) => {
@@ -95,13 +119,22 @@ export const Dashboard = () => {
     }
   };
 
+  // Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("adminUser");
+    navigate("/admin/login");
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Manage Products</h2>
-        <Button onClick={() => setIsDialogOpen(true)}>
-          <Plus className="w-5 h-5 mr-2" /> Add Product
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={() => setIsDialogOpen(true)}>
+            <Plus className="w-5 h-5 mr-2" /> Add Product
+          </Button>
+          <Button variant="destructive" onClick={handleLogout}>Logout</Button>
+        </div>
       </div>
 
       {/* Products Table */}
