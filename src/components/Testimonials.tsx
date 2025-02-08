@@ -24,15 +24,9 @@ const testimonials: Testimonial[] = [
     comment: "Great selection of items. The quality is outstanding.",
     avatar: "https://i.pravatar.cc/150?img=2",
   },
+ 
   {
     id: 3,
-    name: "Emily Davis",
-    rating: 5,
-    comment: "Best shopping experience ever! Fast delivery and great customer service.",
-    avatar: "https://i.pravatar.cc/150?img=3",
-  },
-  {
-    id: 4,
     name: "John Smith",
     rating: 5,
     comment: "Exceptional quality and fast shipping. Highly recommended!",
@@ -59,34 +53,30 @@ export const Testimonials = () => {
         <h2 className="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
         <div className="relative">
           <div 
-            className="flex transition-transform duration-500 ease-in-out"
+            className="flex flex-wrap justify-center transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
           >
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="w-full sm:w-1/2 lg:w-1/3 px-4" // Responsive adjustments
+                className="w-full sm:w-1/2 lg:w-1/3 px-4 flex justify-center"
               >
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
-                    <div>
-                      <h3 className="font-semibold">{testimonial.name}</h3>
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-16 h-16 rounded-full mb-3"
+                  />
+                  <h3 className="font-semibold text-lg">{testimonial.name}</h3>
+                  <div className="flex justify-center mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                        }`}
+                      />
+                    ))}
                   </div>
                   <p className="text-gray-600">{testimonial.comment}</p>
                 </div>
