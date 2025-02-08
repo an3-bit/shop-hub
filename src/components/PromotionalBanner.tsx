@@ -19,7 +19,7 @@ const PromotionalBanner = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
               <img
-                src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src="https://images.pexels.com/photos/207589/pexels-photo-207589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Premium Laptop"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
@@ -35,7 +35,7 @@ const PromotionalBanner = () => {
 
             <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
               <img
-                src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src="https://images.pexels.com/photos/2779018/pexels-photo-2779018.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Smart Watch"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
@@ -51,7 +51,7 @@ const PromotionalBanner = () => {
 
             <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
               <img
-                src="https://images.pexels.com/photos/2531156/pexels-photo-2531156.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src="https://images.pexels.com/photos/10433489/pexels-photo-10433489.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Premium Headphones"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />

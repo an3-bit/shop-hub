@@ -1,69 +1,100 @@
-# Welcome to your Lovable project
+React + TypeScript Admin Dashboard
+Project Overview
+This project is a modern web application built with React, TypeScript, shadcn-ui, and Tailwind CSS. It provides an admin dashboard with features like product management, sales analytics, and inventory tracking. The application is designed to be user-friendly, responsive, and easy to customize.
 
-## Project info
+Setup Instructions
+To get started with this project, follow the steps below:
 
-**URL**: https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6
+Prerequisites
+Node.js (v16 or higher) and npm installed.
+If you don't have Node.js installed, you can use nvm to install it.
 
-## How can I edit this code?
+Clone the Repository
+Clone the repository using the project's Git URL:
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+sh
+Copy
 git clone <YOUR_GIT_URL>
+Navigate to the project directory:
 
-# Step 2: Navigate to the project directory.
+sh
+Copy
 cd <YOUR_PROJECT_NAME>
+Dependency Installation
+Install the necessary dependencies by running:
 
-# Step 3: Install the necessary dependencies.
-npm i
+<!-- sh -->
+Copy
+npm install
+Running the Project
+Start the development server with auto-reloading and an instant preview:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+sh
+Copy
 npm run dev
-```
+Once the server is running, open your browser and navigate to:
 
-**Edit a file directly in GitHub**
+Copy
+http://localhost:8080
+Project Structure
+Here’s an overview of the project structure:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+Editing the Code
+You can edit this project in several ways:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Using Your Preferred IDE
+Clone the repository and open it in your IDE.
 
-## What technologies are used for this project?
+Make changes locally and push them to the repository.
 
-This project is built with .
+2. Editing Directly in GitHub
+Navigate to the desired file(s) in the repository.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Click the "Edit" button (pencil icon) at the top right of the file view.
 
-## How can I deploy this project?
+Make your changes and commit them.
 
-Simply open [Lovable](https://lovable.dev/projects/920c1a1a-3a59-4a99-9bab-2f76d6d38eb6) and click on Share -> Publish.
+3. Using GitHub Codespaces
+Navigate to the main page of your repository.
 
-## I want to use a custom domain - is that possible?
+Click on the "Code" button (green button) near the top right.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Select the "Codespaces" tab.
+
+Click on "New codespace" to launch a new Codespace environment.
+
+Edit files directly within the Codespace and commit your changes.
+
+Technologies Used
+This project is built with the following technologies:
+
+1. React: A JavaScript library for building user interfaces.
+
+2. TypeScript: Adds static typing to JavaScript for better code quality.
+
+3. shadcn-ui: A collection of reusable UI components.
+
+4. Tailwind CSS: A utility-first CSS framework for rapid UI development.
+
+5. Vite: Fast build tool for modern web applications.
+
+Deployment
+To deploy this project, you can use any static hosting service like Netlify, Vercel, or GitHub Pages. Follow the deployment instructions for your chosen platform.
+
+Contributing
+If you'd like to contribute to this project, please follow these steps:
+
+Fork the repository.
+
+Create a new branch for your feature or bugfix.
+
+Make your changes and commit them.
+
+Submit a pull request.
+
+Support
+For any questions or issues, feel free to open an issue in the repository.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
